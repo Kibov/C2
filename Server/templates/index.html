@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Tasks {% endblock %}</h1>
+    {% for task in tasks %}
+        <div class='tasks'>
+            <p>{{ task['created'] }}</p>
+            <h2>{{ task['implant_id'] }}</h2>
+            <p>{{ task['command'] }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
