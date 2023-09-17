@@ -1,10 +1,17 @@
 from flask import request
 from flask_restful import Resource
+from Listeners.HttpListener import HTTPListener
 
-
+http_listener = HTTPListener("test", 1234)
 
 class Listeners(Resource):
+
     def get(self):
-        return "ok", 200
+        print("start http server")
+        http_listener.start()
+        return "OK", 200
+
     def post(self):
-        return "ok", 200
+        print("stopping http server")
+        http_listener.stop()
+        return "Turning off HTTP", 200
