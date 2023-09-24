@@ -18,9 +18,9 @@ std::string get(std::string ip, unsigned int port, std::string uri) {
     DWORD dwDownloaded = 0;
     BOOL bResults = FALSE;
 
-    HINTERNET hSession = NULL,
-            hConnect = NULL,
-            hRequest = NULL;
+    HINTERNET hSession = nullptr,
+            hConnect = nullptr,
+            hRequest = nullptr;
 
     hSession = WinHttpOpen(L"test",
                            WINHTTP_ACCESS_TYPE_DEFAULT_PROXY,
@@ -40,7 +40,7 @@ std::string get(std::string ip, unsigned int port, std::string uri) {
 
         hRequest = WinHttpOpenRequest(hConnect,
                                       L"GET", suri.c_str(),
-                                      NULL,
+                                      nullptr,
                                       WINHTTP_NO_REFERER,
                                       WINHTTP_DEFAULT_ACCEPT_TYPES,
                                       0);
@@ -59,7 +59,7 @@ std::string get(std::string ip, unsigned int port, std::string uri) {
 
     if (bResults) {
 
-        bResults = WinHttpReceiveResponse(hRequest, NULL);
+        bResults = WinHttpReceiveResponse(hRequest, nullptr);
     }
 
     if (bResults) {
@@ -91,7 +91,7 @@ std::string get(std::string ip, unsigned int port, std::string uri) {
 }
 
 
-std::string post(std::string ip, unsigned int port, std::string uri, std::string dat) {
+std::string post(std::string ip, unsigned int port, std::string uri, const std::string& dat) {
     LPSTR data = const_cast<char *>(dat.c_str());
     DWORD data_len = strlen(data);
 
@@ -109,9 +109,9 @@ std::string post(std::string ip, unsigned int port, std::string uri, std::string
     DWORD dwDownloaded = 0;
     BOOL bResults = FALSE;
 
-    HINTERNET hSession = NULL,
-            hConnect = NULL,
-            hRequest = NULL;
+    HINTERNET hSession = nullptr,
+            hConnect = nullptr,
+            hRequest = nullptr;
 
     hSession = WinHttpOpen(L"test", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY,
                            WINHTTP_NO_PROXY_NAME,
@@ -123,14 +123,14 @@ std::string post(std::string ip, unsigned int port, std::string uri, std::string
     }
     if (hConnect) {
         hRequest = WinHttpOpenRequest(hConnect, L"POST", suri.c_str(),
-                                      NULL, WINHTTP_NO_REFERER,
+                                      nullptr, WINHTTP_NO_REFERER,
                                       WINHTTP_DEFAULT_ACCEPT_TYPES, 0);
     }
     if (hRequest) {
         bResults = WinHttpSendRequest(hRequest, additionalHeaders, headersLength, (LPVOID) data, data_len, data_len, 0);
     }
     if (bResults) {
-        bResults = WinHttpReceiveResponse(hRequest, NULL);
+        bResults = WinHttpReceiveResponse(hRequest, nullptr);
     }
 
     if (bResults) {

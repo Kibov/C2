@@ -1,2 +1,4 @@
 /Client/cmake-build-debug/
 .idea
+/Client/cmake-build-release/
+/Client/CMakeFiles/

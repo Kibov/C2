@@ -8,6 +8,6 @@
 
 std::string get(std::string ip, unsigned int port, std::string uri);
 
-std::string post(std::string ip, unsigned int port, std::string uri, std::string dat);
+std::string post(std::string ip, unsigned int port, std::string uri, const std::string& dat);
 
 #endif //FERNFLOWER_NETWORK_OPERATIONS_H

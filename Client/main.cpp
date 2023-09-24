@@ -25,6 +25,4 @@ int main() {
         int jitter = std::rand();
         Sleep(5000 + jitter);
     }
-
-    return 0;
 }

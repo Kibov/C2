@@ -9,6 +9,8 @@ add_executable(FernFlower main.cpp
         Include/network_operations.h
         Include/shell.h
         Source/shell.cpp
-        Source/network_operations.cpp)
+        Source/network_operations.cpp
+        Source/init.cpp
+        Include/init.h)
 
 target_link_libraries(FernFlower winhttp)
