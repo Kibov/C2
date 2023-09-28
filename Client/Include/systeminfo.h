@@ -12,7 +12,7 @@ class systeminfo {
 public:
     std::string getHostname();
     std::string getUsername();
-
+    std::string getIntegrity();
 };
 
 

