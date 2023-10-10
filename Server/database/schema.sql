@@ -3,10 +3,10 @@ DROP TABLE IF EXISTS implants;
 
 CREATE TABLE implants (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    implant_id TEXT NOT NULL,
+    implant_hostname TEXT NOT NULL,
+    implant_username TEXT NOT NULL,
+    implant_privilege TEXT NOT NULL,
     ip_address TEXT NOT NULL,
-    hostname TEXT,
-    operating_system TEXT,
     last_seen TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 --Used for sending tasks to execute to a specific implant_id
