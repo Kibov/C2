@@ -55,9 +55,8 @@ std::string systeminfo::getIntegrity() {
     else if (integrityLevel <= SECURITY_MANDATORY_HIGH_RID) {
         integrity = "High";
     }
-    else if (integrityLevel < SECURITY_MANDATORY_SYSTEM_RID) {
+    else if (integrityLevel <= SECURITY_MANDATORY_SYSTEM_RID) {
         integrity = "SYSTEM";
     }
-    std::cout << integrity << "\n";
     return integrity;
 }

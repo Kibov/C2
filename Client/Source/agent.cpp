@@ -6,7 +6,6 @@
 #include "agent.h"
 
 agent::agent() {
-    std::cout << "works!";
 }
 
 std::string agent::getUsername() {
