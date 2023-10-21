@@ -15,9 +15,9 @@ int getRandom(int min, int max) {
 }
 
 std::vector<std::string> split_string(const std::string& s, const std::string& delimiter) {
-    unsigned int position_start{0};
-    unsigned int position_end{};
-    unsigned long long delimiter_length{ delimiter.length() };
+    size_t position_start{0};
+    size_t position_end{};
+    size_t delimiter_length{ delimiter.length() };
     std::string token;
     std::vector<std::string> res;
 
