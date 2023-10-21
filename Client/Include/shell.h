@@ -2,6 +2,7 @@
 // Created by kibkib on 23.09.2023.
 //
 #include <string>
+#include <stdio.h>
 
 #ifndef FERNFLOWER_SHELL_H
 #define FERNFLOWER_SHELL_H
