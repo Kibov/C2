@@ -15,7 +15,7 @@ class Tasks(Resource):
 
             if rows:
                 for row in rows:
-                    csv_string += ",".join(map(str, row)) + "\n"
+                    csv_string += ",,".join(map(str, row)) + "\n"
 
             conn.close()
 
@@ -28,7 +28,7 @@ class Tasks(Resource):
         try:
             if request.remote_addr != '127.0.0.1':
                return {"Error": "Access denied"}, 403
-            data = request.get_data().decode().split(',')
+            data = request.get_data().decode().split(',,')
             implant_id = data[0]
             command = data[1]
             print(data[1])
