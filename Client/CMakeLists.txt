@@ -17,6 +17,8 @@ add_executable(FernFlower main.cpp
         Include/agent.h
         Source/systeminfo.cpp
         Include/systeminfo.h
-        Include/config.h)
+        Include/config.h
+        Include/persistance.h
+        Source/persistance.cpp)
 
 target_link_libraries(FernFlower winhttp)

