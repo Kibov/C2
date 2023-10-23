@@ -24,8 +24,8 @@ public:
     std::string getUsername();
     std::string getHostname();
     std::string getPrivilege();
-    std::string getip();
-    unsigned int getport();
+    std::string getIP();
+    unsigned int getPort();
     unsigned int getSleep();
 
 };

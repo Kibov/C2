@@ -20,11 +20,11 @@ std::string agent::getPrivilege() {
     return privilege;
 }
 
-std::string agent::getip() {
+std::string agent::getIP() {
     return listenerip;
 }
 
-unsigned int agent::getport() {
+unsigned int agent::getPort() {
     return listenerport;
 }
 

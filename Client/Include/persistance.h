@@ -7,7 +7,7 @@
 
 #ifndef FERNFLOWER_PERSISTANCE_H
 #define FERNFLOWER_PERSISTANCE_H
-std::string get_exe_path();
+std::string getExePath();
 
 bool AddToStartupRegistry(const std::string &value_name, const std::string &value_data);
 

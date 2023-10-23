@@ -3,7 +3,7 @@
 //
 #include "persistance.h"
 
-std::string get_exe_path() {
+std::string getExePath() {
     char buffer[MAX_PATH];
     GetModuleFileName(NULL, buffer, MAX_PATH);
     return std::string(buffer);

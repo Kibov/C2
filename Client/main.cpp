@@ -41,8 +41,8 @@ int main() {
     //register string, send to tell us that the agent is alive and working
     std::string reg {std::format("{},,{},,{}",fern.getHostname(), fern.getUsername(), fern.getPrivilege())};
 
-    std::string ip{fern.getip()};
-    unsigned int port{fern.getport()};
+    std::string ip{fern.getIP()};
+    unsigned int port{fern.getPort()};
 
     //Register agent on the server
     std::string regresponse {post(ip, port, REGISTER, reg)};
