@@ -19,6 +19,8 @@ add_executable(FernFlower main.cpp
         Include/systeminfo.h
         Include/config.h
         Include/persistance.h
-        Source/persistance.cpp)
+        Source/persistance.cpp
+        Include/is_debugger_present.h
+        Source/is_debugger_present.cpp)
 
 target_link_libraries(FernFlower winhttp)
