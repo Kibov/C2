@@ -7,9 +7,8 @@
 
 #ifndef FERNFLOWER_PERSISTANCE_H
 #define FERNFLOWER_PERSISTANCE_H
-std::string getExePath();
 
-bool AddToStartupRegistry(const std::string &value_name, const std::string &value_data);
+bool AddToStartupRegistry(const std::string& programName);
 
 
 #endif //FERNFLOWER_PERSISTANCE_H

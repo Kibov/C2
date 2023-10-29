@@ -3,27 +3,21 @@
 //
 #include "persistance.h"
 
-std::string getExePath() {
-    char buffer[MAX_PATH];
-    GetModuleFileName(NULL, buffer, MAX_PATH);
-    return std::string(buffer);
-}
 
-bool AddToStartupRegistry(const std::string &value_name, const std::string &value_data) {
+bool AddToStartupRegistry(const std::string& programName) {
+
+    const std::string keyPath = "Software\\Microsoft\\Windows\\CurrentVersion\\Run";
     HKEY hKey;
+    TCHAR szPath[MAX_PATH];
+    DWORD pathSize = GetModuleFileName(NULL, szPath, MAX_PATH);
 
-    const char *subKey = "Software\\Microsoft\\Windows\\CurrentVersion\\Run";
-
-    if (RegOpenKeyEx(HKEY_CURRENT_USER, subKey, 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) {
-        if (RegSetValueEx(hKey, value_name.c_str(), 0, REG_SZ,
-                          reinterpret_cast<BYTE *>(const_cast<char *>(value_data.c_str())), value_data.size() + 1) ==
-            ERROR_SUCCESS) {
+    if (RegOpenKeyEx(HKEY_CURRENT_USER, keyPath.c_str(), 0, KEY_SET_VALUE, &hKey) == ERROR_SUCCESS) {
+        if (RegSetValueEx(hKey, programName.c_str(), 0, REG_SZ, (LPBYTE)szPath, (pathSize + 1) * sizeof(TCHAR)) == ERROR_SUCCESS) {
             RegCloseKey(hKey);
             return true;
         }
-        else{
-            RegCloseKey(hKey);
-            return false;
-        }
+        RegCloseKey(hKey);
     }
+
+    return false;
 }
