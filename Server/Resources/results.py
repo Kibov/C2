@@ -34,7 +34,7 @@ class results(Resource):
 
         try:
 
-            data = request.get_data().decode().split(',')
+            data = request.get_data().decode().split(',,')
             implant_id = data[0]
             result = data[1]
             conn = get_db_connection()
