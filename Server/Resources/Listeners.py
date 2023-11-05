@@ -2,7 +2,7 @@ from flask import request
 from flask_restful import Resource
 from Listeners.HttpListener import HTTPListener
 
-http_listener = HTTPListener("test", 1234)
+http_listener = HTTPListener("HTTPListener", 8080)
 
 class Listeners(Resource):
 

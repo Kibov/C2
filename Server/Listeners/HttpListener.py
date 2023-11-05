@@ -2,6 +2,8 @@ from flask import Flask, request
 from flask_restful import Api
 from multiprocessing import Process
 from Resources.Tasks import Tasks
+from Resources.agents import agents
+from Resources.results import results
 from threading import Lock
 
 class SingletonMeta(type):
@@ -26,6 +28,8 @@ class HTTPListener(metaclass=SingletonMeta):
         self.app = Flask(name)
         self.api = Api(self.app)
         self.api.add_resource(Tasks, '/tasks', endpoint='tasks')
+        self.api.add_resource(agents, '/reg', endpoint='reg')
+        self.api.add_resource(results, '/res', endpoint='res')
         self.server_process = None
 
     def start(self):
@@ -37,7 +41,7 @@ class HTTPListener(metaclass=SingletonMeta):
             print("HTTP server is already running.")
 
     def run_server(self):
-        self.app.run(host='127.0.0.2', port=self.port, debug=True, use_reloader=False)
+        self.app.run(host='0.0.0.0', port=self.port, debug=True, use_reloader=False)
 
     def stop(self):
         if self.server_process:
