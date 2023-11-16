@@ -43,7 +43,7 @@ class results(Resource):
             cursor = conn.cursor()
             cursor.execute("INSERT INTO results (tasks_task_id, result) VALUES (?, ?)", (task_id, result))
             #Set the executer = 1 to the most recent task
-            cursor.execute("UPDATE tasks SET executed = 1 WHERE task_id = ?", (task_id))
+            cursor.execute("UPDATE tasks SET executed = 1 WHERE task_id = ?", (task_id,))
             conn.commit()
             conn.close()
             return "Result added", 201
