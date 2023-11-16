@@ -14,7 +14,7 @@ class results(Resource):
 
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("SELECT implant_id,created,result FROM results")
+            cursor.execute("SELECT * FROM results")
             rows = cursor.fetchall()
 
             csv_string = ""
@@ -28,6 +28,7 @@ class results(Resource):
 
 
         except Exception as e:
+            print(str(e))
             return {"Error": str(e)}, 500
 
     def post(self):
@@ -35,14 +36,18 @@ class results(Resource):
         try:
 
             data = request.get_data().decode().split(',,')
-            implant_id = data[0]
+            task_id = data[0]
             result = data[1]
+            print(f'{task_id},\n{result},\n{data}')
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO results (implant_id, result) VALUES (?, ?)", (implant_id, result))
+            cursor.execute("INSERT INTO results (tasks_task_id, result) VALUES (?, ?)", (task_id, result))
+            #Set the executer = 1 to the most recent task
+            cursor.execute("UPDATE tasks SET executed = 1 WHERE task_id = ?", (task_id))
             conn.commit()
             conn.close()
             return "Result added", 201
 
         except Exception as e:
+            print(str(e))
             return {"Error": str(e)}, 500

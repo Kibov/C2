@@ -30,7 +30,7 @@ CREATE TABLE tasks (
     task_id             INTEGER PRIMARY KEY,
     created             TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     command             TEXT,
-    executed           CHAR(1),
+    executed            INTEGER,
     implants_implant_id INTEGER,
     FOREIGN KEY (implants_implant_id) REFERENCES implants (implant_id)
 );

