@@ -30,7 +30,7 @@ std::vector<std::string> split_string(const std::string &s, const std::string &d
         res.push_back(token);
     }
     //last element in the list also needs to be pushed back, it doesn't meet the above condition,
-    //because there are no more delimiters
+    ///because there are no more delimiters
     res.push_back(s.substr(position_start));
     return res;
 }

@@ -5,6 +5,19 @@ from database.dbconnection import get_db_connection
 class Tasks(Resource):
     def get(self):
         try:
+            csv_string = ""
+            if request.remote_addr == "127.0.0.1":
+                conn = get_db_connection()
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM tasks")
+                rows = cursor.fetchall()
+                if rows:
+                    for row in rows:
+                        csv_string += ',,'.join(map(str, row))
+                conn.close()
+                return csv_string, 200
+
+
             implant_id = request.args.get('implant_id')
             
             if not implant_id:
@@ -14,9 +27,7 @@ class Tasks(Resource):
             cursor = conn.cursor()
             cursor.execute("SELECT task_id, command FROM tasks WHERE executed != 1 AND implants_implant_id = ?", (implant_id,))
             rows = cursor.fetchall()
-
-            # Convert the rows to a CSV string
-            csv_string = ""
+            
 
             if rows:
                 for row in rows:

